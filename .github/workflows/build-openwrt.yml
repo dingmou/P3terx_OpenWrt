@@ -11,7 +11,7 @@ name: Build OpenWrt
 on:
   release:
     types: published
-  push:
+  #push:
     branches:
       - master
     paths:
@@ -55,7 +55,12 @@ jobs:
 
     - name: Clone source code
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-
+      
+    - name: Clone addtional source code
+      run: |
+        cd openwrt 
+        git clone https://github.com/Lienol/openwrt-package package/lienol
+        
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
